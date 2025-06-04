@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talismã Bet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Cabeçalho */
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(180deg, #000000, #2a2a2a);
+        }
+
+        header img {
+            max-width: 200px;
+        }
+
+        header p {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        /* Seções */
+        section {
+            padding: 60px 20px;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+        }
+
+        /* Primeira Seção - Cotações */
+        #cotacoes {
+            background: none;
+        }
+
+        #cotacoes img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .expandable-container {
+            cursor: pointer;
+            display: inline-block;
+            margin: 20px 0;
+        }
+
+        .expandable-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 5px;
+        }
+
+        .arrow-container {
+            margin-top: -5px;
+        }
+
+        .expandable-container.active .arrow-container {
+            display: none;
+        }
+
+        .cotacoes-text {
+            display: none;
+            font-size: 16px;
+            color: #fff;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        .cotacoes-text.active {
+            display: block;
+        }
+
+        .cotacoes-text .cotacao-grid {
+            display: grid;
+            grid-template-columns: 1fr 80px;
+            gap: 5px 10px;
+            align-items: center;
+        }
+
+        .cotacoes-text span {
+            display: flex;
+            align-items: center;
+        }
+
+        .cotacoes-text i {
+            color: #ffd700;
+            margin-right: 5px;
+            font-size: 14px;
+        }
+
+        .cotacoes-text .value {
+            color: #ffd700;
+            text-align: right;
+        }
+
+        /* Seções com gradiente (a partir da segunda) */
+        #cards, #banner, #beneficios, #pagamentos, #grupo, #responsabilidade {
+            background: linear-gradient(0deg, #000000, #2a2a2a);
+        }
+
+        /* Segunda Seção - Cards */
+        #cards {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #cards h2 {
+            width: 100%;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .card i {
+            color: #ffd700;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            color: #ffd700;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            font-size: 16px;
+            color: #fff;
+        }
+
+        /* Terceira Seção - Banner */
+        #banner img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Quarta Seção - Benefícios */
+        #beneficios ul {
+            list-style: none;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        #beneficios li {
+            font-size: 18px;
+            color: #fff;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        #beneficios li::before {
+            content: '★';
+            color: #ffd700;
+            margin-right: 10px;
+            font-size: 20px;
+        }
+
+        /* Quinta Seção - Imagens */
+        #pagamentos img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        /* Sexta Seção - Grupo */
+        #grupo button {
+            background-color: #ffd700;
+            color: #1a1a1a;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        #grupo button:hover {
+            background-color: #e6c200;
+        }
+
+        #grupo img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Sétima Seção - Responsabilidade */
+        #responsabilidade img {
+            max-width: 100%;
+            height: auto;
+            margin: 10px 0;
+        }
+
+        #responsabilidade p {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+            margin: 10px 0;
+            text-transform: uppercase;
+        }
+
+        /* Rodapé */
+        footer {
+            background-color: #000000;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        footer p {
+            margin: 5px 0;
+        }
+
+        footer a {
+            color: #ffd700;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Botão Flutuante */
+        .floating-button {
+            position: fixed;
+            bottom: 20px;
+            left: 10px;
+            right: 10px;
+            width: auto;
+            max-width: 500px;
+            background-color: #ffd700;
+            color: #1a1a1a;
+            font-size: 18px;
+            font-weight: bold;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            text-transform: uppercase;
+            z-index: 1000;
+            box-shadow: 0 0 10px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .floating-button:hover {
+            background-color: #e6c200;
+            box-shadow: 0 0 15px #ffd700, 0 0 25px #ffd700, 0 0 40px #ffd700;
+        }
+
+        @media (max-width: 600px) {
+            .floating-button {
+                width: calc(100% - 20px);
+                border-radius: 25px;
+            }
+        }
+
+        /* Ícone WhatsApp */
+        .whatsapp-icon {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .whatsapp-icon img {
+            width: 60px;
+            height: 60px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header>
+        <img src="img/logo.webp" alt="Talismã Bet Logo">
+        <p>Maior plataforma de apostas online do Brasil</p>
+    </header>
+
+    <!-- Primeira Seção - Cotações -->
+    <section id="cotacoes">
+        <img src="img/8mil.webp" alt="8 Mil">
+        <div class="expandable-container" onclick="toggleCotacoes()">
+            <div class="expandable-title">Veja as cotações</div>
+            <div class="arrow-container">
+                <i class="fas fa-chevron-down" style="color: #ffd700; font-size: 24px;"></i>
+            </div>
+        </div>
+        <div class="cotacoes-text">
+            <div class="cotacao-grid">
+                <span><i class="fas fa-check-circle"></i>SUPER COTAÇÃO</span>
+                <span></span>
+                <span><i class="fas fa-check-circle"></i>Milhar</span>
+                <span class="value">8.000,00</span>
+                <span><i class="fas fa-check-circle"></i>Centena</span>
+                <span class="value">800,00</span>
+                <span><i class="fas fa-check-circle"></i>Grupo</span>
+                <span class="value">20,00</span>
+                <span><i class="fas fa-check-circle"></i>Dezena</span>
+                <span class="value">80,00</span>
+                <span><i class="fas fa-check-circle"></i>Unidade</span>
+                <span class="value">8,00</span>
+                <span><i class="fas fa-check-circle"></i>Duque de Grupo (1º ao 2º)</span>
+                <span class="value">180,00</span>
+                <span><i class="fas fa-check-circle"></i>Duque de Grupo (1º ao 5º)</span>
+                <span class="value">18,00</span>
+                <span><i class="fas fa-check-circle"></i>Duque de Dezena (1º ao 5º)</span>
+                <span class="value">300,00</span>
+                <span><i class="fas fa-check-circle"></i>Terno de Grupo (1º ao 3º)</span>
+                <span class="value">1.500,00</span>
+                <span><i class="fas fa-check-circle"></i>Terno de Grupo (1º ao 5º)</span>
+                <span class="value">150,00</span>
+                <span><i class="fas fa-check-circle"></i>Passe Vai</span>
+                <span class="value">90,00</span>
+                <span><i class="fas fa-check-circle"></i>Passe Vai e Vem</span>
+                <span class="value">45,00</span>
+                <span><i class="fas fa-check-circle"></i>Terno de Dezena (1º ao 5º)</span>
+                <span class="value">5.000,00</span>
+                <span><i class="fas fa-check-circle"></i>Quadra de Grupo (1º ao 5º)</span>
+                <span class="value">1.000,00</span>
+                <span><i class="fas fa-check-circle"></i>Quina de Grupo (1º ao 5º)</span>
+                <span class="value">1.000,00</span>
+                <span><i class="fas fa-check-circle"></i>Sena de Grupo (1º ao 6º)</span>
+                <span class="value">1.000,00</span>
+                <span><i class="fas fa-check-circle"></i>Palpitão</span>
+                <span class="value">800,00</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Segunda Seção - Cards -->
+    <section id="cards">
+        <h2>AQUI DESCOMPLICAMOS TUDO PRA VOCÊ!</h2>
+        <div class="cards-container">
+            <div class="card">
+                <i class="fas fa-headset"></i>
+                <h3>Suporte e SAC</h3>
+                <p>Suporte humanizado, estamos sempre disponíveis para tirar qualquer dúvida e só chamar!</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>Lucros</h3>
+                <p>Credibilidade com os pagamentos, clicou recebeu!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terceira Seção - Banner -->
+    <section id="banner">
+        <img src="img/banner.webp" alt="Banner">
+    </section>
+
+    <!-- Quarta Seção - Benefícios -->
+    <section id="beneficios">
+        <h2>CONFIRA TODOS OS BENEFÍCIOS DA NOSSA PLATAFORMA</h2>
+        <ul>
+            <li>MELHORES COTAÇÕES DE MODALIDADES</li>
+            <li>APP PARA ANDROID</li>
+            <li>DEPÓSITO A PARTIR DE R$ 10,00</li>
+            <li>SAQUES E RECARGAS PELO APP</li>
+            <li>100% AUTOMATIZADO E RÁPIDO</li>
+            <li>SEUS DADOS SEGUROS</li>
+        </ul>
+    </section>
+
+    <!-- Quinta Seção - Pagamentos -->
+    <section id="pagamentos">
+        <img src="img/pix.webp" alt="Pix">
+        <img src="img/seguro.webp" alt="Seguro">
+    </section>
+
+    <!-- Sexta Seção - Grupo -->
+    <section id="grupo">
+        <h2>ESTÁ TODO MUNDO GANHANDO, VAI FICAR DE FORA DESSA?</h2>
+        <img src="img/grupozap.webp" alt="Grupo Zap">
+        <button onclick="window.location.href='https://chat.whatsapp.com/BPDuhxYiu9W8V8CtL9q4XM'">Entrar no grupo de palpites</button>
+    </section>
+
+    <!-- Sétima Seção - Responsabilidade -->
+    <section id="responsabilidade">
+        <img src="img/sem-menores.webp" alt="Sem Menores">
+        <p>PROIBIDO PARA MENORES</p>
+        <img src="img/18.webp" alt="18+">
+        <p>JOGUE COM RESPONSABILIDADE</p>
+    </section>
+
+    <!-- Rodapé -->
+    <footer>
+        <p>© 2025 Talismã Bet. Todos os direitos reservados.</p>
+        <p><a href="#">Termos de Uso</a> | <a href="#">Política de Privacidade</a></p>
+    </footer>
+
+    <!-- Botão Flutuante -->
+    <button class="floating-button" onclick="window.location.href='https://app.sistemabarao.com.br/talisma-bet?p=IpXE8UCO'">QUERO ME CADASTRAR!</button>
+
+    <!-- Ícone WhatsApp -->
+    <a href="https://wa.me/+554374006736" class="whatsapp-icon">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+    </a>
+
+    <script>
+        function toggleCotacoes() {
+            const text = document.querySelector('.cotacoes-text');
+            const container = document.querySelector('.expandable-container');
+            text.classList.toggle('active');
+            container.classList.toggle('active');
+        }
+
+        // Fade-in effect on scroll
+        document.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight - 100) {
+                    section.classList.add('visible');
+                }
+            });
+        });
+
+        // Trigger initial check
+        window.addEventListener('load', function() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight - 100) {
+                    section.classList.add('visible');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
