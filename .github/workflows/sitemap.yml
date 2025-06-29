@@ -22,7 +22,7 @@ jobs:
         id: sitemap
         uses: cicirello/generate-sitemap@v1
         with:
-          base-url-path: http://www.talismabet.net/  # URL base do seu site
+          base-url-path: http://talismabet.net/  # URL base do seu site
           path-to-root: ./  # Caminho para a raiz do site no repositório
           drop-html-extension: true  # Remove a extensão .html das URLs
           date-only: true  # Usa apenas a data (sem hora) no campo lastmod
